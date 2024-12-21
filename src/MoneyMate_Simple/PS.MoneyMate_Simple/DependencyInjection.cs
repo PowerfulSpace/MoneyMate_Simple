@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PS.MoneyMate_Simple.Data;
+using PS.MoneyMate_Simple.Repositories.Implementation;
+using PS.MoneyMate_Simple.Repositories.Interfaces;
 
 namespace PS.MoneyMate_Simple
 {
@@ -13,6 +15,10 @@ namespace PS.MoneyMate_Simple
                 .AddPersistance(configuration)
                 .AddMapsterConfiguration()
                 .AddValidationConfiguration();
+
+            services.AddScoped<IConversionRequestRepository, ConversionRequestRepository>();
+            services.AddScoped<ICurrencyRepository, CurrencyRepository>();
+            services.AddScoped<IExchangeRateRepository, ExchangeRateRepository>();
 
             return services;
         }
