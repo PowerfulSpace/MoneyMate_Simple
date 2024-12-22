@@ -1,4 +1,6 @@
 ﻿using Mapster;
+using PS.MoneyMate_Simple.Entities;
+using PS.MoneyMate_Simple.Models;
 
 namespace PS.MoneyMate_Simple.Mappings
 {
@@ -6,7 +8,8 @@ namespace PS.MoneyMate_Simple.Mappings
     {
         public void Register(TypeAdapterConfig config)
         {
-            throw new NotImplementedException();
+            config.NewConfig<ConversionRequest, ConversionRequestViewModel>()
+              .IgnoreNullValues(true);
         }
     }
 }

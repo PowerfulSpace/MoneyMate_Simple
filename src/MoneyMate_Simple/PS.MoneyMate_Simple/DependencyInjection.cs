@@ -1,7 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentValidation;
+using Mapster;
+using Microsoft.EntityFrameworkCore;
 using PS.MoneyMate_Simple.Data;
 using PS.MoneyMate_Simple.Repositories.Implementation;
 using PS.MoneyMate_Simple.Repositories.Interfaces;
+using PS.MoneyMate_Simple.Validations;
 
 namespace PS.MoneyMate_Simple
 {
@@ -33,10 +36,17 @@ namespace PS.MoneyMate_Simple
 
         private static IServiceCollection AddMapsterConfiguration(this IServiceCollection services)
         {
+            // Регистрируем все конфигурации маппинга в текущей сборке
+            TypeAdapterConfig.GlobalSettings.Scan(AppDomain.CurrentDomain.GetAssemblies());
+
             return services;
         }
         private static IServiceCollection AddValidationConfiguration(this IServiceCollection services)
         {
+            services.AddValidatorsFromAssemblyContaining<CurrencyViewModelValidator>();
+            services.AddValidatorsFromAssemblyContaining<ConversionRequestViewModelValidator>();
+            services.AddValidatorsFromAssemblyContaining<ExchangeRateViewModelValidator>();
+
             return services;
         }
 
